@@ -1,74 +1,71 @@
-# Simple Grep (ROS 2 Package)
+# simple_grep
 
-[![build_and_test](https://github.com/duognn/simple_grep/actions/workflows/test.yml/badge.svg)](https://github.com/duognn/simple_grep/actions/workflows/test.yml)
+[![Build Status](https://github.com/duognn/simple_grep/actions/workflows/test.yml/badge.svg)](https://github.com/duognn/simple_grep/actions/workflows/test.yml)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-**simple_grep** is a ROS 2 package that implements a distributed text filtering system. It demonstrates the fundamental communication patterns in ROS 2, including Publishers, Subscribers, Parameters, and Launch files.
+---
 
-## Package Information
-* **Maintainer**: duong (bangtuthao@gmail.com)
-* **License**: BSD-3-Clause
-* **Build Type**: ament_python
+## 概要 / Overview
 
-## 🛠 Dependencies
-* **OS**: Ubuntu 22.04 (Jammy)
-* **ROS 2 Distro**: Humble Hawksbill
-* **Language**: Python 3.10+
+**simple_grep** は、Publisher / Subscriber パターンを用いた  
+分散テキストフィルタリングシステムを実装する ROS 2（Python）パッケージです。
+**simple_grep** is a ROS 2 (Python) package that implements a 
+*distributed text filtering system* using the Publisher/Subscriber model.
 
-##  Nodes Description
+本パッケージは、ROS 2 の基本機能（ノード、トピック、パラメータ、Launch ファイル）を 理解することを目的とした学習用サンプルです。
+This package is designed as a learning example to demonstrate 
+core ROS 2 concepts such as nodes, topics, parameters, and launch files.
 
-### 1. `stream_publisher`
-Reads text input from `stdin` (Standard Input) and publishes it line-by-line to a ROS topic.
+---
 
-* **Publishes**:
-    * Topic: `/text_stream`
-    * Type: `std_msgs/msg/String`
-    * Description: Raw text data input by the user.
+## システム構成 / System Architecture
 
-### 2. `pattern_filter`
-Subscribes to the text stream and prints only the lines containing a specific keyword (target word).
+| ノード名 / Node | 役割 / Role | 説明 / Description | トピック・パラメータ |
+|----------------|------------|--------------------|---------------------|
+| `stream_publisher` | Publisher | 標準入力からテキストを読み取り、トピックに配信します。 | **Pub:** `/text_stream` (`std_msgs/String`) |
+| `pattern_filter` | Subscriber | 指定したキーワードに基づいてテキストをフィルタリングします。 | **Sub:** `/text_stream`<br>**Param:** `target_word`（default: `"ros"`） |
 
-* **Subscribes**:
-    * Topic: `/text_stream`
-    * Type: `std_msgs/msg/String`
-* **Parameters**:
-    * `target_word` (string, default: "ros"): The keyword used to filter the incoming text stream.
+---
 
-##  Build Instructions
+## 使用方法 / Usage
 
+### 1. ビルドとセットアップ / Build & Setup
 ```bash
-cd ~/ros2_ws
 colcon build --packages-select simple_grep
 source install/setup.bash
 
-Usage
-Using Launch File (Recommended)
-The launch file starts the filter node with a configurable parameter.
-
-Basic usage (Default filter: 'ros'):
+### 2. Launch ファイルで実行（推奨）/ Using Launch File (Recommended)
+```bash
+# デフォルトキーワード: "ros"
+# Default keyword: "ros"
 ros2 launch simple_grep grep.launch.py
 
-Custom filter (e.g., filter for 'error'):
-ros2 launch simple_grep grep.launch.py target_word:=error
-Manual Execution
-Step 1: Start the Filter Node
+# カスタムキーワード
+# Custom keyword
+ros2 launch simple_grep grep.launch.py target_word:=hello
 
-Bash
-
-ros2 run simple_grep pattern_filter --ros-args -p target_word:=hello
-Step 2: Start the Publisher Node Open a new terminal and run:
-
-Bash
-
+### 3. 手動実行（別ターミナル）/ Manual Execution
+```bash
+ターミナル 1 / Terminal 1（Publisher）:
 ros2 run simple_grep stream_publisher
-Note: Type text in the publisher terminal. Matching lines will appear in the filter terminal.
 
- Testing (CI/CD)
-This package contains automated tests verified by GitHub Actions.
+ターミナル 2 / Terminal 2（Filter）:
+ros2 run simple_grep pattern_filter --ros-args -p target_word:=hello
 
-Run tests locally:
+標準入力に入力したテキストのうち、
+キーワードを含む行のみが表示されます。
+Only lines containing the target keyword
+will be displayed in the filter node.
+---
+## テスト / Testing
 
-Bash
-
+GitHub Actions により自動テストを実行しています。
+This package includes automated tests verified by GitHub Actions.
+```bash
 colcon test --packages-select simple_grep
 colcon test-result --verbose
+---
+## ライセンス / License
+
+本ソフトウェアは BSD 3-Clause License のもとで公開されています。  
+This software is released under the BSD 3-Clause License.
