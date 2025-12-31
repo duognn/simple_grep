@@ -1,38 +1,18 @@
-name: build_and_test
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-
+name: test
+on: push
 jobs:
-  build_and_test:
+  test:
     runs-on: ubuntu-22.04
-    container:
-      image: osrf/ros:humble-desktop
+    container: ros:humble-ros-base-jammy
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          path: src/simple_grep
-
-      - name: Install dependencies
+      - uses: actions/checkout@v2
+      - name: build and test
         run: |
-          apt-get update
+          rsync -av ./ /root/ros2_ws/src/mypkg/
+          cd /root/ros2_ws
           rosdep update
-          rosdep install --from-paths src --ignore-src -y
-
-      - name: Build package
-        run: |
-          . /opt/ros/humble/setup.sh
-          colcon build --packages-select simple_grep
-
-      - name: Run tests
-        run: |
-          . /opt/ros/humble/setup.sh
-          colcon test --packages-select simple_grep
-
-      - name: Check test results
-        run: |
-          colcon test-result --verbose
+          rosdep install -i --from-path src --rosdistro humble -y
+          colcon build --packages-select mypkg
+          source install/setup.bash
+          cd src/mypkg
+          bash ./test_grep.bash

@@ -12,7 +12,7 @@ def generate_launch_description():
             description='Word to filter'
         ),
         launch_ros.actions.Node(
-            package='simple_grep',
+            package='mypkg',
             executable='pattern_filter',
             name='pattern_filter',
             output='screen',

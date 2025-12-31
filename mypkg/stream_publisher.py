@@ -1,12 +1,11 @@
-# SPDX-FileCopyrightText: 2025 duong
+# SPDX-FileCopyrightText: 2025 Duong Huyen
 # SPDX-License-Identifier: BSD-3-Clause
 
 import sys
-
+import time 
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
-
 
 class StreamPublisher(Node):
     def __init__(self):
@@ -19,9 +18,12 @@ class StreamPublisher(Node):
                 msg = String()
                 msg.data = line.strip()
                 self.pub.publish(msg)
+                self.get_logger().info(f"Published: {msg.data}") 
+            
+            time.sleep(1) 
+            
         except KeyboardInterrupt:
             pass
-
 
 def main():
     rclpy.init()
@@ -29,7 +31,6 @@ def main():
     node.run()
     node.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()

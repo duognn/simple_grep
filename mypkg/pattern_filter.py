@@ -1,10 +1,9 @@
-# SPDX-FileCopyrightText: 2025 duong
+# SPDX-FileCopyrightText: 2025 Duong Huyen
 # SPDX-License-Identifier: BSD-3-Clause
 
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
-
 
 class PatternFilter(Node):
     def __init__(self):
@@ -18,11 +17,9 @@ class PatternFilter(Node):
         self.subscription
 
     def listener_callback(self, msg):
-        target = \
-            self.get_parameter('target_word').get_parameter_value().string_value
+        target = self.get_parameter('target_word').get_parameter_value().string_value
         if target in msg.data:
             print(msg.data, flush=True)
-
 
 def main():
     rclpy.init()
@@ -33,7 +30,6 @@ def main():
         pass
     node.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
