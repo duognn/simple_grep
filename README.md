@@ -7,10 +7,8 @@
 
 ## 概要 / Overview
 
-**simple_grep** は、Publisher / Subscriber パターンを用いた  
-分散テキストフィルタリングシステムを実装する ROS 2（Python）パッケージです。
-**simple_grep** is a ROS 2 (Python) package that implements a 
-*distributed text filtering system* using the Publisher/Subscriber model.
+**simple_grep** は、Publisher / Subscriber パターンを用いた分散テキストフィルタリングシステムを実装する ROS 2（Python）パッケージです。
+**simple_grep** is a ROS 2 (Python) package that implements a *distributed text filtering system* using the Publisher/Subscriber model.
 
 本パッケージは、ROS 2 の基本機能（ノード、トピック、パラメータ、Launch ファイル）を 理解することを目的とした学習用サンプルです。
 This package is designed as a learning example to demonstrate 
@@ -34,7 +32,9 @@ core ROS 2 concepts such as nodes, topics, parameters, and launch files.
 colcon build --packages-select simple_grep
 source install/setup.bash
 
-### 2. Launch ファイルで実行（推奨）/ Using Launch File (Recommended)
+---
+
+### 2. Launch ファイルで実行（例）/ Using Launch File (Example)
 ```bash
 # デフォルトキーワード: "ros"
 # Default keyword: "ros"
@@ -43,6 +43,8 @@ ros2 launch simple_grep grep.launch.py
 # カスタムキーワード
 # Custom keyword
 ros2 launch simple_grep grep.launch.py target_word:=hello
+
+---
 
 ### 3. 手動実行（別ターミナル）/ Manual Execution
 ```bash
@@ -56,7 +58,9 @@ ros2 run simple_grep pattern_filter --ros-args -p target_word:=hello
 キーワードを含む行のみが表示されます。
 Only lines containing the target keyword
 will be displayed in the filter node.
+
 ---
+
 ## テスト / Testing
 
 GitHub Actions により自動テストを実行しています。
@@ -64,7 +68,9 @@ This package includes automated tests verified by GitHub Actions.
 ```bash
 colcon test --packages-select simple_grep
 colcon test-result --verbose
+
 ---
+
 ## ライセンス / License
 
 本ソフトウェアは BSD 3-Clause License のもとで公開されています。  
