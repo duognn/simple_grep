@@ -1,6 +1,6 @@
 # mypkg
-[![test](https://github.com/duognn/mypkg/actions/workflows/test.yml/badge.svg)](https://github.com/duognn/mypkg/actions/workflows/test.yml)
-
+[![Build Status](https://github.com/duognn/simple_grep/actions/workflows/test.yml/badge.svg)](https://github.com/duognn/simple_grep/actions/workflows/test.yml)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 A text filtering package for ROS 2.
 ---
 ## Description
@@ -25,6 +25,7 @@ This package demonstrates a simple implementation of the "grep" command using RO
 You need two terminals to run this system.
 
 *Terminal 1: Filter
+
 Start the filter node. It waits for incoming text.
 ```bash
 $ ros2 run mypkg pattern_filter
@@ -32,6 +33,7 @@ $ ros2 run mypkg pattern_filter
 Note: The default target word is "ros".
 
 *Terminal 2: Publisher
+
 Send text via standard input.
 ```bash
  echo "Hello ROS World" | ros2 run mypkg stream_publisher
