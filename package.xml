@@ -4,7 +4,7 @@
   <name>simple_grep</name>
   <version>0.0.0</version>
   <description>A simple distributed text filter using ROS 2 topics</description>
-  <maintainer email="bangtuthao@gmail.com">duong</maintainer>
+  <maintainer email="s24c1069mq@s.chibakoudai.jp">duong</maintainer>
   <license>BSD-3-Clause</license>
 
   <test_depend>ament_copyright</test_depend>

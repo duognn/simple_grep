@@ -17,7 +17,7 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='duong',
-    maintainer_email='bangtuthao@gmail.com',
+    maintainer_email='s24c1069mq@s.chibakoudai.jp',
     description='A simple distributed text filter using ROS 2 topics',
     license='BSD-3-Clause',
     extras_require={
