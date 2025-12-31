@@ -31,8 +31,7 @@ core ROS 2 concepts such as nodes, topics, parameters, and launch files.
 ```bash
 colcon build --packages-select simple_grep
 source install/setup.bash
-
----
+```
 
 ### 2. Launch ファイルで実行（例）/ Using Launch File (Example)
 ```bash
@@ -43,17 +42,16 @@ ros2 launch simple_grep grep.launch.py
 # カスタムキーワード
 # Custom keyword
 ros2 launch simple_grep grep.launch.py target_word:=hello
-
----
-
+```
 ### 3. 手動実行（別ターミナル）/ Manual Execution
-```bash
 ターミナル 1 / Terminal 1（Publisher）:
+```bash
 ros2 run simple_grep stream_publisher
-
+```
+```bash
 ターミナル 2 / Terminal 2（Filter）:
 ros2 run simple_grep pattern_filter --ros-args -p target_word:=hello
-
+```
 標準入力に入力したテキストのうち、
 キーワードを含む行のみが表示されます。
 Only lines containing the target keyword
@@ -68,7 +66,7 @@ This package includes automated tests verified by GitHub Actions.
 ```bash
 colcon test --packages-select simple_grep
 colcon test-result --verbose
-
+```
 ---
 
 ## ライセンス / License
